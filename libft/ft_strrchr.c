@@ -20,18 +20,18 @@
  * @param c
  * @return char*
  */
-char	*ft_strrchr(const char *s, int c)
+char* ft_strrchr(const char* s, int c)
 {
-	char		*last_char;
-	const char	ch = c;
-	size_t		i;
+	char*	   last_char;
+	const char ch = c;
+	size_t	   i;
 
-	i = 0;
+	i		  = 0;
 	last_char = NULL;
 	while (i <= ft_strlen(s))
 	{
 		if (s[i] == ch)
-			last_char = (char *)&s[i];
+			last_char = (char*)&s[i];
 		i++;
 	}
 	return (last_char);

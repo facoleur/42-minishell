@@ -16,9 +16,9 @@
 // Get the nbr of digits of an hex number
 // Param:	Decimal number to get the number of digit
 // Return:	Number of digits of the number
-static int	get_hexnbr_len(t_ull n)
+static int get_hexnbr_len(t_ull n)
 {
-	int	count;
+	int count;
 
 	count = 1;
 	while (n > 9)
@@ -29,7 +29,7 @@ static int	get_hexnbr_len(t_ull n)
 	return (count);
 }
 
-static char	*max_or_zero(t_ull decnbr)
+static char* max_or_zero(t_ull decnbr)
 {
 	if (decnbr == 0)
 		return (ft_strdup("0"));
@@ -41,16 +41,16 @@ static char	*max_or_zero(t_ull decnbr)
 // Description:	Convert and print a decimal number into an hex and prints it.
 // Param:		Decimal number to convert.
 // Return:		Return the digits printed, without the \0.
-char	*dectohex_str(unsigned int decnbr)
+char* dectohex_str(unsigned int decnbr)
 {
-	unsigned int	index;
-	unsigned int	digit;
-	char			*nbrstr;
+	unsigned int index;
+	unsigned int digit;
+	char*		 nbrstr;
 
 	index = 0;
 	if (decnbr == 0 || (unsigned int)decnbr == (unsigned int)-2147483648)
 		return (max_or_zero(decnbr));
-	nbrstr = (char *)palloc(get_hexnbr_len(decnbr) + 1, sizeof(char));
+	nbrstr = (char*)palloc(get_hexnbr_len(decnbr) + 1, sizeof(char));
 	if (nbrstr == 0)
 		return (0);
 	while (decnbr > 0)
@@ -63,22 +63,22 @@ char	*dectohex_str(unsigned int decnbr)
 		decnbr /= 16;
 	}
 	nbrstr[index++] = '\0';
-	nbrstr = revtab(nbrstr);
+	nbrstr			= revtab(nbrstr);
 	return (nbrstr);
 }
 
 // CONVERT DECIMAL NUMBER TO HEX NUMBER WITHOUT LEADING 0x
 // Used to print a ptr address
-char	*dectohex_sptr(t_ull decnbr)
+char* dectohex_sptr(t_ull decnbr)
 {
-	t_ull	index;
-	t_ull	digit;
-	char	*nbrstr;
+	t_ull index;
+	t_ull digit;
+	char* nbrstr;
 
 	index = 0;
 	if (decnbr == 0)
 		return (ft_strdup("0x0"));
-	nbrstr = (char *)palloc(get_hexnbr_len(decnbr) + 3, sizeof(char));
+	nbrstr = (char*)palloc(get_hexnbr_len(decnbr) + 3, sizeof(char));
 	if (nbrstr == 0)
 		return (0);
 	while (decnbr > 0)
@@ -93,21 +93,21 @@ char	*dectohex_sptr(t_ull decnbr)
 	nbrstr[index++] = 'x';
 	nbrstr[index++] = '0';
 	nbrstr[index++] = '\0';
-	nbrstr = revtab(nbrstr);
+	nbrstr			= revtab(nbrstr);
 	return (nbrstr);
 }
 
 // CONVERT DECIMAL NUMBER TO HEX IN CAPITAL LETTERS
-char	*dectohex_scap(unsigned int decnbr)
+char* dectohex_scap(unsigned int decnbr)
 {
-	unsigned int	index;
-	unsigned int	digit;
-	char			*nbrstr;
+	unsigned int index;
+	unsigned int digit;
+	char*		 nbrstr;
 
 	index = 0;
 	if (decnbr == 0 || (unsigned int)decnbr == (unsigned int)-2147483648)
 		return (max_or_zero(decnbr));
-	nbrstr = (char *)palloc(get_hexnbr_len(decnbr) + 1, sizeof(char));
+	nbrstr = (char*)palloc(get_hexnbr_len(decnbr) + 1, sizeof(char));
 	if (nbrstr == 0)
 		return (0);
 	while (decnbr > 0)
@@ -120,6 +120,6 @@ char	*dectohex_scap(unsigned int decnbr)
 		decnbr /= 16;
 	}
 	nbrstr[index++] = '\0';
-	nbrstr = revtab(nbrstr);
+	nbrstr			= revtab(nbrstr);
 	return (nbrstr);
 }

@@ -2,40 +2,43 @@ OS              := $(shell uname)
 NAME            = minishell
 CC              = cc
 SRCDIR          = src
-SRC             = array_utils.c \
-                  builtin.c \
-                  builtin_utils.c \
-                  cmd_utils.c \
-                  env.c \
-                  env_utils.c \
-                  error.c \
-                  error_handling.c \
-                  error_handling_utils.c \
-                  exec.c \
-                  expansion.c \
-                  expansion_utils.c \
-                  file_redirection.c \
-                  free.c \
-                  history.c \
-                  history2.c \
-                  list_utils.c \
-                  main.c \
-                  node_utils.c \
-                  parser.c \
-                  parser_utils.c \
-                  pipe.c \
-                  redirection_file_utils.c \
-                  signals.c \
-                  stack.c \
-                  tokenizer.c \
-                  tokenizer_utils.c \
-                  tokenizer_utils2.c \
-                  utils.c
+SRC             = shell/main.c \
+                  shell/signals.c \
+                  shell/terminal.c \
+                  lexer/lexer.c \
+                  lexer/tokenizer.c \
+                  lexer/operators.c \
+                  lexer/quotes.c \
+                  lexer/token_utils.c \
+                  expansion/expansion.c \
+                  expansion/expansion_utils.c \
+                  parser/parser.c \
+                  parser/node_utils.c \
+                  parser/node_free.c \
+                  exec/exec.c \
+                  exec/cmd_path.c \
+                  exec/pipe.c \
+                  exec/stack.c \
+                  redirection/redirection.c \
+                  redirection/dispatch.c \
+                  builtins/builtin.c \
+                  builtins/dispatch.c \
+                  env/env.c \
+                  env/env_utils.c \
+                  env/env_copy.c \
+                  history/history.c \
+                  history/history_file.c \
+                  error/error.c \
+                  error/error_handling.c \
+                  error/error_handling_utils.c \
+                  common/array_utils.c
 OBJDIR          = obj
 OBJS            = $(SRC:%.c=$(OBJDIR)/%.o)
+HDRS            = $(shell find $(SRCDIR) -name '*.h')
 LIBFTPATH       = libft
 LIBFT           = $(LIBFTPATH)/libft.a
 CFLAGS          = -g -Wall -Werror -Wextra
+INCLUDES        = -I$(SRCDIR) -I$(LIBFTPATH)
 
 # Conditional Readline paths for macOS
 ifeq ($(OS),Darwin)
@@ -48,9 +51,9 @@ else
 endif
 
 # Generic rule for .o files
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HDRS)
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $(INC_DIR) -c $< -o $@
 
 all: $(NAME)
 
@@ -61,7 +64,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(OBJS) $(LIBFT) -o $(NAME) $(LIB_DIR) -lreadline
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -f $(NAME)

@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void	*palloc(int size, int elem_size)
+void* palloc(int size, int elem_size)
 {
-	void	*res;
+	void* res;
 
 	res = malloc(elem_size * (size + 1));
 	if (!res)
@@ -22,9 +22,9 @@ void	*palloc(int size, int elem_size)
 	return (res);
 }
 
-void	*ft_calloc(size_t nelem, size_t elsize)
+void* ft_calloc(size_t nelem, size_t elsize)
 {
-	void	*res;
+	void* res;
 
 	if (nelem == 0 || elsize == 0)
 	{

@@ -20,13 +20,13 @@
  * @param n
  * @return char*
  */
-static char	*ft_strncat(char *dest, const char *src, size_t n)
+static char* ft_strncat(char* dest, const char* src, size_t n)
 {
-	size_t	dest_len;
-	size_t	i;
+	size_t dest_len;
+	size_t i;
 
 	dest_len = ft_strlen(dest);
-	i = 0;
+	i		 = 0;
 	while (i < n && src[i])
 	{
 		if (dest_len + i < n - 1)
@@ -35,16 +35,16 @@ static char	*ft_strncat(char *dest, const char *src, size_t n)
 			i++;
 		}
 		else
-			break ;
+			break;
 	}
 	dest[dest_len + i] = '\0';
 	return (dest);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t ft_strlcat(char* dst, const char* src, size_t size)
 {
-	size_t	d_len;
-	size_t	s_len;
+	size_t d_len;
+	size_t s_len;
 
 	d_len = ft_strlen(dst);
 	s_len = ft_strlen(src);

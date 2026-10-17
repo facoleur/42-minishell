@@ -19,17 +19,17 @@
  * @param s2
  * @return char*
  */
-char	*ft_strjoin(const char *s1, const char *s2)
+char* ft_strjoin(const char* s1, const char* s2)
 {
-	char	*res;
-	size_t	i;
-	size_t	j;
-	size_t	totlen;
+	char*  res;
+	size_t i;
+	size_t j;
+	size_t totlen;
 
-	i = 0;
-	j = 0;
+	i	   = 0;
+	j	   = 0;
 	totlen = ft_strlen(s1) + ft_strlen(s2);
-	res = palloc(totlen + 1, sizeof(char));
+	res	   = palloc(totlen + 1, sizeof(char));
 	if (res == NULL)
 		return (NULL);
 	while (s1[i])
@@ -51,12 +51,12 @@ char	*ft_strjoin(const char *s1, const char *s2)
  * @param s2
  * @return char*
  */
-char	*ft_strjoin_safe(const char *s1, const char *s2)
+char* ft_strjoin_safe(const char* s1, const char* s2)
 {
-	char	*res;
-	size_t	i;
-	size_t	j;
-	size_t	totlen;
+	char*  res;
+	size_t i;
+	size_t j;
+	size_t totlen;
 
 	i = -1;
 	j = 0;
@@ -67,7 +67,7 @@ char	*ft_strjoin_safe(const char *s1, const char *s2)
 	else if (!s2)
 		return (ft_strdup(s1));
 	totlen = ft_strlen(s1) + ft_strlen(s2);
-	res = palloc(totlen + 1, sizeof(char));
+	res	   = palloc(totlen + 1, sizeof(char));
 	if (res == NULL)
 		return (NULL);
 	while (s1[++i])

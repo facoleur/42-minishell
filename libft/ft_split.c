@@ -12,13 +12,13 @@
 
 #include "libft.h"
 
-size_t	wordcounter(char const *s, char c)
+size_t wordcounter(char const* s, char c)
 {
-	int	i;
-	int	index;
-	int	count;
+	int i;
+	int index;
+	int count;
 
-	i = 0;
+	i	  = 0;
 	index = 0;
 	count = 0;
 	while (s[i])
@@ -35,12 +35,12 @@ size_t	wordcounter(char const *s, char c)
 	return (count);
 }
 
-char	*wordmaker(char const *s, int start, int end)
+char* wordmaker(char const* s, int start, int end)
 {
-	char	*word;
-	size_t	i;
+	char*  word;
+	size_t i;
 
-	i = 0;
+	i	 = 0;
 	word = palloc(end - start + 1, sizeof(char));
 	if (word == 0)
 		return (0);
@@ -50,17 +50,17 @@ char	*wordmaker(char const *s, int start, int end)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char** ft_split(char const* s, char c)
 {
-	size_t	i;
-	size_t	j;
-	int		index;
-	char	**res;
+	size_t i;
+	size_t j;
+	int	   index;
+	char** res;
 
-	i = 0;
-	j = 0;
+	i	  = 0;
+	j	  = 0;
 	index = -1;
-	res = palloc(wordcounter(s, c) + 1, sizeof(char *));
+	res	  = palloc(wordcounter(s, c) + 1, sizeof(char*));
 	if (res == 0)
 		return (0);
 	while (i <= ft_strlen(s))
@@ -70,7 +70,7 @@ char	**ft_split(char const *s, char c)
 		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
 		{
 			res[j++] = wordmaker(s, index, i);
-			index = -1;
+			index	 = -1;
 		}
 		i++;
 	}

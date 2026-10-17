@@ -1,0 +1,113 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Lu-ni <lucas.nicollier@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/28 22:12:43 by Lu-ni             #+#    #+#             */
+/*   Updated: 2024/04/28 22:17:31 by bob              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "common/common.h"
+#include "lexer/lexer.h"
+
+char* op_tokenzier_loop(char* string, int* i, int* op_flag, int* start)
+{
+	char* token;
+
+	if (is_double_op(string, *i) && !*op_flag && !is_in_quotes(string, *i))
+	{
+		*op_flag = true;
+		token	 = ft_substr(string, *i, 2);
+		*i += 2;
+	}
+	else if (is_single_op(string, *i) && !*op_flag && !is_in_quotes(string, *i))
+	{
+		*op_flag = true;
+		token	 = ft_substr(string, (*i)++, 1);
+	}
+	else
+	{
+		*start = *i;
+		while (string[*i] &&
+			   ((!is_double_op(string, *i) && !is_single_op(string, *i)) ||
+				is_in_quotes(string, *i)))
+			(*i)++;
+		token	 = ft_substr(string, *start, *i - *start);
+		*op_flag = false;
+	}
+	return (token);
+}
+
+char** op_tokenizer(char* string)
+{
+	char** res;
+	int	   op_flag;
+	int	   i;
+	int	   j;
+	int	   start;
+
+	res		= palloc((count_op(string) + 1) * 2, sizeof(char*));
+	i		= 0;
+	j		= 0;
+	op_flag = 0;
+	while (string[i])
+		res[j++] = op_tokenzier_loop(string, &i, &op_flag, &start);
+	res[j] = 0;
+	return (res);
+}
+
+char** sp_tokenizer(char* string, char c)
+{
+	size_t i;
+	size_t j;
+	int	   index;
+	char** res;
+
+	i	  = -1;
+	j	  = 0;
+	index = -1;
+	res	  = palloc(wordcounter(string, c) + 1, sizeof(char*));
+	if (res == 0)
+		return (0);
+	while (++i <= ft_strlen(string))
+	{
+		if (string[i] != c && index < 0)
+			index = i;
+		else if ((string[i] == c || i == ft_strlen(string)) && index >= 0 &&
+				 !is_in_quotes(string, i))
+		{
+			res[j++] = wordmaker(string, index, i);
+			index	 = -1;
+		}
+	}
+	res[j] = 0;
+	return (res);
+}
+
+t_tokens** quotes_tokenizer(char** tokens, int* expanded)
+{
+	int		   i;
+	t_tokens** res;
+	char*	   temp;
+
+	res = palloc(count_arr_elems(tokens) + 1, sizeof(t_tokens*));
+	i	= 0;
+	while (tokens[i])
+	{
+		res[i]		  = palloc(1, sizeof(t_tokens));
+		res[i]->quote = is_quote(tokens[i][0]);
+		if (expanded[i])
+			res[i]->quote = DOUBLE_QUOTE;
+		temp		= all_quotes_remover(tokens[i]);
+		res[i]->tok = ft_strdup(temp);
+		if (!res[i]->tok)
+			return (NULL);
+		free(temp);
+		i++;
+	}
+	res[i] = 0;
+	return (res);
+}

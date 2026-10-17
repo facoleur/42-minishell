@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int	count_digit(int n)
+static int count_digit(int n)
 {
-	int	count;
+	int count;
 
 	count = 2;
 	if (n < 0)
@@ -30,9 +30,9 @@ static int	count_digit(int n)
 	return (count);
 }
 
-static char	*max_int_or_zero_mngmt(int n)
+static char* max_int_or_zero_mngmt(int n)
 {
-	char	*str;
+	char* str;
 
 	if (n == 0)
 	{
@@ -47,9 +47,9 @@ static char	*max_int_or_zero_mngmt(int n)
 	return (str);
 }
 
-static char	*mallocator(int count)
+static char* mallocator(int count)
 {
-	char	*anbr;
+	char* anbr;
 
 	anbr = palloc(count, sizeof(char));
 	if (anbr == 0)
@@ -57,10 +57,10 @@ static char	*mallocator(int count)
 	return (anbr);
 }
 
-char	*ft_itoa(int n)
+char* ft_itoa(int n)
 {
-	char	*anbr;
-	size_t	*i;
+	char*	anbr;
+	size_t* i;
 
 	i = (size_t[]){0, n, 0};
 	if (n == 0 || n == -2147483648)

@@ -20,17 +20,17 @@
  * @param c
  * @return char* or NULL if it doesn't find the character
  */
-char	*ft_strchr(const char *s, int c)
+char* ft_strchr(const char* s, int c)
 {
-	int	i;
+	int i;
 
 	c = (char)c;
 	i = -1;
 	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
+		return ((char*)&s[ft_strlen(s)]);
 	while (s[++i])
 		if (s[i] == c)
-			return ((char *)&s[i]);
+			return ((char*)&s[i]);
 	return (NULL);
 }
 

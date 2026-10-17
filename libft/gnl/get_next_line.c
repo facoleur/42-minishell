@@ -15,10 +15,10 @@
 
 // read fd and return raw line with \n and the leftover
 // from the buffer (stash var)
-char	*line_read(int fd, char *buf, char *stash)
+char* line_read(int fd, char* buf, char* stash)
 {
-	int		bread;
-	char	*temp_stash;
+	int	  bread;
+	char* temp_stash;
 
 	bread = 1;
 	while (bread > 0)
@@ -27,15 +27,15 @@ char	*line_read(int fd, char *buf, char *stash)
 		if (bread < 0)
 			return (NULL);
 		else if (bread == 0)
-			break ;
+			break;
 		buf[bread] = 0;
 		if (!stash)
 			stash = ft_strdup("");
 		temp_stash = stash;
-		stash = ft_strjoin(temp_stash, buf);
+		stash	   = ft_strjoin(temp_stash, buf);
 		free(temp_stash);
 		if (ft_strchr(stash, '\n'))
-			break ;
+			break;
 	}
 	return (stash);
 }
@@ -43,12 +43,12 @@ char	*line_read(int fd, char *buf, char *stash)
 // SUB_LINE
 // params:	raw line to remove residual from
 // return:	clean line with \n at the end
-char	*sub_line(char *line)
+char* sub_line(char* line)
 {
-	char	*newline;
-	int		i;
+	char* newline;
+	int	  i;
 
-	i = 0;
+	i		= 0;
 	newline = palloc(ft_strlen(line) + 1, sizeof(char));
 	while (line[i] && line[i] != '\n')
 	{
@@ -64,9 +64,9 @@ char	*sub_line(char *line)
 // GET_RESIDUAL
 // params:	raw line to get residual from
 // return:	string after the \n from line
-char	*get_residual(char *line)
+char* get_residual(char* line)
 {
-	t_get_residual	var;
+	t_get_residual var;
 
 	var.i = 0;
 	var.j = 0;
@@ -89,12 +89,12 @@ char	*get_residual(char *line)
 // After error handling, get raw line, get residual, cut line.
 // params: file descriptor to return line from
 // return: current line
-char	*get_next_line(int fd)
+char* get_next_line(int fd)
 {
-	char		*buf;
-	char		*line;
-	static char	*stash;
-	char		*res;
+	char*		 buf;
+	char*		 line;
+	static char* stash;
+	char*		 res;
 
 	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (freeyator(&stash));
@@ -105,7 +105,7 @@ char	*get_next_line(int fd)
 	freeyator(&buf);
 	if (!line)
 		return (freeyator(&line));
-	res = sub_line(line);
+	res	  = sub_line(line);
 	stash = get_residual(line);
 	freeyator(&line);
 	if (*res == '\0')
@@ -115,7 +115,7 @@ char	*get_next_line(int fd)
 	return (res);
 }
 
-char	*freeyator(char **s)
+char* freeyator(char** s)
 {
 	free(*s);
 	*s = 0;

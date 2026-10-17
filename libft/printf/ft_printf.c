@@ -12,10 +12,10 @@
 
 #include "ft_printf.h"
 
-t_ull	conv_printer_hex(t_ull nbr, char const c)
+t_ull conv_printer_hex(t_ull nbr, char const c)
 {
-	t_ull	count;
-	char	*hexstr;
+	t_ull count;
+	char* hexstr;
 
 	count = 0;
 	if (c == 'p')
@@ -33,13 +33,13 @@ t_ull	conv_printer_hex(t_ull nbr, char const c)
 
 // Fn actually printing the characters
 // Return:	Number of characters printed
-t_ull	conv_printer(char const c, va_list args)
+t_ull conv_printer(char const c, va_list args)
 {
-	t_ull	printed_chars;
+	t_ull printed_chars;
 
 	printed_chars = 0;
 	if (c == 's')
-		printed_chars += print_str(va_arg(args, char *));
+		printed_chars += print_str(va_arg(args, char*));
 	else if (c == 'c')
 		printed_chars += print_char(va_arg(args, int));
 	else if (c == 'i' || c == 'd')
@@ -55,15 +55,15 @@ t_ull	conv_printer(char const c, va_list args)
 
 // FT_PRINTF
 // The one and only ft_printf
-int	ft_printf(const char *s, ...)
+int ft_printf(const char* s, ...)
 {
-	va_list	args;
+	va_list args;
 	int		index;
 	int		i;
 	int		printed_chars;
 
-	index = -1;
-	i = 0;
+	index		  = -1;
+	i			  = 0;
 	printed_chars = 0;
 	va_start(args, s);
 	while (s[i])

@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void ft_putnbr_fd(int n, int fd)
 {
-	int	nbr;
+	int nbr;
 
 	if (n == -2147483648)
 		ft_putstr_fd("-2147483648", fd);
 	if (n == -2147483648)
-		return ;
+		return;
 	else if (n < 0 && n > -2147483648)
 	{
 		n = -n;
@@ -28,12 +28,12 @@ void	ft_putnbr_fd(int n, int fd)
 	else if (n == 0)
 	{
 		ft_putchar_fd(0 + 48, fd);
-		return ;
+		return;
 	}
 	if (n > 9)
 	{
 		nbr = n % 10;
-		n = n / 10;
+		n	= n / 10;
 		ft_putnbr_fd(n, fd);
 		ft_putchar_fd(nbr + 48, fd);
 	}

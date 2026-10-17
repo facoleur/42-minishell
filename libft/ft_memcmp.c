@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int ft_memcmp(const void* s1, const void* s2, size_t n)
 {
-	const unsigned char	*t1 = s1;
-	const unsigned char	*t2 = s2;
-	int					i;
+	const unsigned char* t1 = s1;
+	const unsigned char* t2 = s2;
+	int					 i;
 
 	i = 0;
 	while (n-- > 0)

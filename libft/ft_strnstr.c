@@ -21,23 +21,23 @@
  * @param len The number of characters to search.
  * @return char*
  */
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char* ft_strnstr(const char* haystack, const char* needle, size_t len)
 {
-	size_t	i;
-	size_t	j;
+	size_t i;
+	size_t j;
 
 	i = 0;
 	j = 0;
 	if (ft_strlen(needle) > len)
 		return (NULL);
 	if (ft_strlen(needle) == 0)
-		return ((char *)&haystack[i]);
+		return ((char*)&haystack[i]);
 	while (i < ft_strlen(haystack) && i < len)
 	{
 		while (haystack[i + j] == needle[j] && i + j < len)
 		{
 			if (needle[j + 1] == 0)
-				return ((char *)&haystack[i]);
+				return ((char*)&haystack[i]);
 			j++;
 		}
 		j = 0;
