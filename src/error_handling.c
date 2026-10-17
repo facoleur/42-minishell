@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	errror_msg(int type, int c)
+int errror_msg(int type, int c)
 {
 	printf("minishell: ");
 	if (type == ERR_UNEXPECTED_TOKEN || type == ERR_UNCLOSED_QUOTE)
@@ -30,7 +30,7 @@ int	errror_msg(int type, int c)
 	return (1);
 }
 
-int	access_infile(char *filepath)
+int access_infile(char* filepath)
 {
 	if (access(filepath, F_OK) == -1)
 	{
@@ -45,12 +45,11 @@ int	access_infile(char *filepath)
 	return (0);
 }
 
-int	token_error(t_tokens *token, int *op_flag, int *f_op_flag)
+int token_error(t_tokens* token, int* op_flag, int* f_op_flag)
 {
 	if (is_unhandled_operator(token->tok) && token->quote == UNQUOTED)
 		return (errror_msg(ERR_UNEXPECTED_TOKEN, token->tok[0]));
-	else if (*f_op_flag && token->quote == UNQUOTED
-		&& (is_file_operator(token->tok) || is_operator(token->tok)))
+	else if (*f_op_flag && token->quote == UNQUOTED && (is_file_operator(token->tok) || is_operator(token->tok)))
 		return (errror_msg(ERR_UNEXPECTED_TOKEN, token->tok[0]));
 	else if (is_file_operator(token->tok))
 		*f_op_flag = true;
@@ -65,15 +64,15 @@ int	token_error(t_tokens *token, int *op_flag, int *f_op_flag)
 	return (0);
 }
 
-int	parsing_error(t_tokens **tokens)
+int parsing_error(t_tokens** tokens)
 {
-	int	i;
-	int	op_flag;
-	int	f_op_flag;
-	int	result;
+	int i;
+	int op_flag;
+	int f_op_flag;
+	int result;
 
-	i = -1;
-	op_flag = true;
+	i		  = -1;
+	op_flag	  = true;
 	f_op_flag = false;
 	while (tokens[++i])
 	{
@@ -81,8 +80,8 @@ int	parsing_error(t_tokens **tokens)
 		if (result != 0)
 			return (result);
 	}
-	if (i > 0 && ((is_operator(tokens[i - 1]->tok) || is_file_operator(tokens[i
-						- 1]->tok)) && tokens[i - 1]->quote == UNQUOTED))
+	if (i > 0 &&
+		((is_operator(tokens[i - 1]->tok) || is_file_operator(tokens[i - 1]->tok)) && tokens[i - 1]->quote == UNQUOTED))
 		return (errror_msg(ERR_UNEXPECTED_TOKEN, tokens[i - 1]->tok[0]));
 	return (0);
 }

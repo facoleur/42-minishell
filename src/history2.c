@@ -12,30 +12,34 @@
 
 #include "minishell.h"
 
-void	print_hist(char **env)
+void print_hist(char** env)
 {
-	int		hist_fd;
-	char	*path;
-	char	*line;
+	int	  hist_fd;
+	char* path;
+	char* line;
 
-	path = get_history_path(env);
+	path	= get_history_path(env);
 	hist_fd = open(path, O_RDONLY);
+	free(path);
+	if (hist_fd < 0)
+		return;
 	line = get_next_line(hist_fd);
 	while (line)
 	{
-		if (line)
-			printf("%s", line);
+		printf("%s", line);
+		free(line);
 		line = get_next_line(hist_fd);
 	}
+	close(hist_fd);
 }
 
-void	ft_history(char *prompt, char **env)
+void ft_history(char* prompt, char** env)
 {
 	add_to_history(prompt);
 	ft_write_history_file(prompt, env);
 }
 
-void	add_to_history(char *line)
+void add_to_history(char* line)
 {
 	add_history(line);
 	remove_end_newline(line);

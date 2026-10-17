@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-char	**free_2starchar(char **strstr)
+char** free_2starchar(char** strstr)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	if (!strstr || !*strstr)
+	if (!strstr)
 		return (NULL);
 	while (strstr[i])
 		free(strstr[i++]);
@@ -26,10 +26,12 @@ char	**free_2starchar(char **strstr)
 	return (NULL);
 }
 
-void	free_tokens(t_tokens **tokens)
+void free_tokens(t_tokens** tokens)
 {
-	int	i;
+	int i;
 
+	if (!tokens)
+		return;
 	i = 0;
 	while (tokens[i])
 	{

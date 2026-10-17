@@ -18,12 +18,12 @@
 // Param 2:	Conversion array
 // Return:	Return the index of the Conversion Character matched.
 //			Return -1 in case it doesn't match
-int	conv_matcher(char c)
+int conv_matcher(char c)
 {
-	int		i;
-	char	*conv_array;
+	int	  i;
+	char* conv_array;
 
-	i = 0;
+	i		   = 0;
 	conv_array = "diuxXscp%";
 	while (conv_array[i])
 	{
@@ -35,14 +35,14 @@ int	conv_matcher(char c)
 }
 
 // PUT NUMBER
-void	ft_putnbr_ll(long long n)
+void ft_putnbr_ll(long long n)
 {
-	long long	nbr;
+	long long nbr;
 
 	if (n == -2147483648)
 		ft_putstr_fd("-2147483648", 1);
 	if (n == -2147483648)
-		return ;
+		return;
 	else if (n < 0 && n > -2147483648)
 	{
 		n = -n;
@@ -51,12 +51,12 @@ void	ft_putnbr_ll(long long n)
 	else if (n == 0)
 	{
 		ft_putchar_fd(0 + 48, 1);
-		return ;
+		return;
 	}
 	if (n > 9)
 	{
 		nbr = n % 10;
-		n = n / 10;
+		n	= n / 10;
 		ft_putnbr_ll(n);
 		ft_putchar_fd(nbr + 48, 1);
 	}
@@ -67,19 +67,19 @@ void	ft_putnbr_ll(long long n)
 // Print an unsigned integer
 // Param:	Unsigned integer to print
 // Return:	Number of char printed
-void	ft_putnbr_uint(t_ull n)
+void ft_putnbr_uint(t_ull n)
 {
-	t_ull	nbr;
+	t_ull nbr;
 
 	if (n == 0)
 	{
 		ft_putchar_fd(0 + 48, 1);
-		return ;
+		return;
 	}
 	if (n > 9)
 	{
 		nbr = n % 10;
-		n = n / 10;
+		n	= n / 10;
 		ft_putnbr_ll(n);
 		ft_putchar_fd(nbr + 48, 1);
 	}
@@ -88,9 +88,9 @@ void	ft_putnbr_uint(t_ull n)
 }
 
 // NUMBER COUNT DIGIT
-t_ull	nbr_count_digit(long long n)
+t_ull nbr_count_digit(long long n)
 {
-	t_ull	count;
+	t_ull count;
 
 	count = 1;
 	if (n < 0)
@@ -109,19 +109,19 @@ t_ull	nbr_count_digit(long long n)
 // REVERSE ARRAY
 // Description:	Reverse a char string
 // Return:		The reversed string
-char	*revtab(char *tab)
+char* revtab(char* tab)
 {
-	t_ull	start;
-	t_ull	end;
-	char	temp;
+	t_ull start;
+	t_ull end;
+	char  temp;
 
 	start = 0;
-	end = ft_strlen(tab) - 1;
-	temp = tab[start];
+	end	  = ft_strlen(tab) - 1;
+	temp  = tab[start];
 	while (start < end)
 	{
-		temp = tab[end];
-		tab[end] = tab[start];
+		temp	   = tab[end];
+		tab[end]   = tab[start];
 		tab[start] = temp;
 		start++;
 		end--;

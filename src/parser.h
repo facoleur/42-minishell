@@ -11,46 +11,45 @@
 /* ************************************************************************** */
 
 #ifndef PARSER_H
-# define PARSER_H
+#define PARSER_H
 
-# define SINGLE_QUOTE 1
-# define DOUBLE_QUOTE 2
+#define SINGLE_QUOTE 1
+#define DOUBLE_QUOTE 2
 
-# define SINGLE 1
-# define DOUBLE 2
-# define NONE 0
+#define SINGLE 1
+#define DOUBLE 2
+#define NONE 0
 
-# define QUOTED 1
-# define UNQUOTED 0
+#define QUOTED 1
+#define UNQUOTED 0
 
-# define NO_QUOTES 'N'
-# define S_QUOTES 'S'
-# define D_QUOTES 'D'
+#define NO_QUOTES 'N'
+#define S_QUOTES 'S'
+#define D_QUOTES 'D'
 
-# define CLOSED_QUOTES 0
-# define OPEN_QUOTES 1
+#define CLOSED_QUOTES 0
+#define OPEN_QUOTES 1
 
 typedef struct s_tokens
 {
-	char	*tok;
-	int		quote;
-	char	*is_in_quotes;
-	int		unclosed_quote;
-}			t_tokens;
+	char* tok;
+	int	  quote;
+	char* is_in_quotes;
+	int	  unclosed_quote;
+} t_tokens;
 
 typedef struct s_tokenzied
 {
-	char	*normalized;
-	char	**space_tok;
-	char	***op_tok;
-	char	**tok;
-}			t_tokenized;
+	char*	normalized;
+	char**	space_tok;
+	char*** op_tok;
+	char**	tok;
+} t_tokenized;
 
-int			is_in_quotes(char *input, int index);
-char		*all_quotes_remover(char *string);
-int			is_quotes_opened(char *string);
-char		*around_quotes_remover(char *string);
-void		all_quotes_remover_loop(char *string, char **token,
-				char prev_quote);
+int	  is_in_quotes(char* input, int index);
+char* all_quotes_remover(char* string);
+int	  is_quotes_opened(char* string);
+char* around_quotes_remover(char* string);
+void  all_quotes_remover_loop(char* string, char** token, char prev_quote);
 
 #endif

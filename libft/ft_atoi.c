@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int ft_atoi(const char* nptr)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	size_t i;
+	size_t j;
+	size_t k;
 
 	i = 1;
 	j = 0;
@@ -35,11 +35,11 @@ int	ft_atoi(const char *nptr)
 	return (k * i);
 }
 
-long	ft_atol(const char *nptr)
+long ft_atol(const char* nptr)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	size_t i;
+	size_t j;
+	size_t k;
 
 	i = 1;
 	j = 0;

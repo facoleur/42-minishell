@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-void	free_lst(t_node *lst)
+void free_lst(t_node* lst)
 {
-	t_node	*tmp;
+	t_node* tmp;
 
 	while (lst)
 	{

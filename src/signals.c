@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	sigint_handler(int sig)
+void sigint_handler(int sig)
 {
 	(void)sig;
 	printf("\n");
@@ -21,14 +21,14 @@ void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-void	sigint_handler_p(int sig)
+void sigint_handler_p(int sig)
 {
 	(void)sig;
 	printf("\n");
 	rl_on_new_line();
 }
 
-void	sigint_handler_heredoc(int sig)
+void sigint_handler_heredoc(int sig)
 {
 	(void)sig;
 	printf("\n");
@@ -36,14 +36,14 @@ void	sigint_handler_heredoc(int sig)
 	exit(1);
 }
 
-void	sigquit_handler(int signo)
+void sigquit_handler(int signo)
 {
 	(void)signo;
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-void	sigquit_handler_p(int signo)
+void sigquit_handler_p(int signo)
 {
 	printf("Quit: %i\n", signo);
 	rl_on_new_line();

@@ -12,40 +12,40 @@
 
 #include "minishell.h"
 
-t_stack	*stack_new(int content)
+t_stack* stack_new(int content)
 {
-	t_stack	*new;
+	t_stack* new;
 
-	new = (t_stack *)palloc(1, sizeof(t_stack));
+	new = (t_stack*)palloc(1, sizeof(t_stack));
 	if (new == NULL)
 		return (NULL);
 	new->value = content;
-	new->next = NULL;
+	new->next  = NULL;
 	return (new);
 }
 
-void	stack_add(t_stack **lst, int value)
+void stack_add(t_stack** lst, int value)
 {
-	t_stack	*new;
-	t_stack	*node;
+	t_stack* new;
+	t_stack* node;
 
 	node = *lst;
-	new = stack_new(value);
+	new	 = stack_new(value);
 	if (!lst)
-		return ;
+		return;
 	if (!node)
 	{
 		*lst = new;
-		return ;
+		return;
 	}
 	while (node && node->next)
 		node = node->next;
 	node->next = new;
 }
 
-void	stack_drop(t_stack **lst)
+void stack_drop(t_stack** lst)
 {
-	t_stack	*next;
+	t_stack* next;
 
 	if (lst && *lst)
 	{

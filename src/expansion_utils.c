@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void	expand_env_vars(char **tokens, int status, char **env)
+void expand_env_vars(char** tokens, int status, char** env, int* expanded)
 {
-	int		i;
-	char	*tmp;
+	int	  i;
+	char* tmp;
 
 	i = 0;
 	while (tokens[i])
@@ -25,19 +25,20 @@ void	expand_env_vars(char **tokens, int status, char **env)
 			tmp = expand_token(tokens[i], status, env);
 			if (tmp)
 			{
-				tokens[i] = ft_strdup(tmp);
-				free(tmp);
+				free(tokens[i]);
+				tokens[i]	= tmp;
+				expanded[i] = 1;
 			}
 		}
 		i++;
 	}
 }
 
-char	*get_var_name(char *token)
+char* get_var_name(char* token)
 {
-	char	*var_name;
-	int		i;
-	int		j;
+	char* var_name;
+	int	  i;
+	int	  j;
 
 	i = 1;
 	j = 0;
@@ -60,9 +61,9 @@ char	*get_var_name(char *token)
 	return (var_name);
 }
 
-char	*get_var_value(char *var_name, int status, char **env)
+char* get_var_value(char* var_name, int status, char** env)
 {
-	char	*var_value;
+	char* var_value;
 
 	if (!var_name)
 		return (0);
@@ -78,12 +79,12 @@ char	*get_var_value(char *var_name, int status, char **env)
 	return (0);
 }
 
-int	get_nbr_of_vars(char *token)
+int get_nbr_of_vars(char* token)
 {
-	int	i;
-	int	nbr_of_vars;
+	int i;
+	int nbr_of_vars;
 
-	i = 0;
+	i			= 0;
 	nbr_of_vars = 0;
 	while (token[i])
 	{

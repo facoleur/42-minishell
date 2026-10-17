@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef ENV_H
-# define ENV_H
+#define ENV_H
 
-char	*ft_getenv(char *varname, char **env);
-int		does_var_exist(char **env, char *var);
-void	export_var(char ***env, char *var);
-int		is_varname_valid(char *var);
-int		is_varvalue_valid(char *var);
+char* ft_getenv(char* varname, char** env);
+int	  does_var_exist(char** env, char* var);
+void  export_var(char*** env, char* var);
+int	  is_varname_valid(char* var);
+int	  is_varvalue_valid(char* var);
 #endif

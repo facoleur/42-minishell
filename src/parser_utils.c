@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	is_metachar(char c)
+int is_metachar(char c)
 {
 	if (c == '|' || c == '<' || c == '>')
 		return (1);
@@ -27,13 +27,13 @@ int	is_metachar(char c)
  * @return 1 if within quotes,
 	0 if not. Returns 1 even if the quote is not closed.
  */
-int	is_in_quotes(char *input, int index)
+int is_in_quotes(char* input, int index)
 {
-	int	in_double_quote;
-	int	in_single_quote;
-	int	i;
+	int in_double_quote;
+	int in_single_quote;
+	int i;
 
-	i = -1;
+	i				= -1;
 	in_double_quote = false;
 	in_single_quote = false;
 	while (input[++i] && i <= index)
@@ -43,7 +43,7 @@ int	is_in_quotes(char *input, int index)
 		else if (input[i] == '\"' && !in_single_quote)
 			in_double_quote = !in_double_quote;
 		if (i == index)
-			break ;
+			break;
 	}
 	if (in_single_quote)
 		return (SINGLE_QUOTE);
@@ -60,17 +60,17 @@ int	is_in_quotes(char *input, int index)
  * @param input
  * @return int
  */
-int	word_counter_quotes(char *input)
+int word_counter_quotes(char* input)
 {
-	int	i;
-	int	quote_count;
-	int	in_quote;
-	int	prev_in_quote;
+	int i;
+	int quote_count;
+	int in_quote;
+	int prev_in_quote;
 
-	in_quote = false;
+	in_quote	  = false;
 	prev_in_quote = false;
-	quote_count = 0;
-	i = 0;
+	quote_count	  = 0;
+	i			  = 0;
 	if (input[i] == '\'' || input[i] == '\"')
 		quote_count--;
 	while (input[i])
@@ -86,7 +86,7 @@ int	word_counter_quotes(char *input)
 	return (quote_count + 1);
 }
 
-int	is_quote(char c)
+int is_quote(char c)
 {
 	if (c == '\'')
 		return (SINGLE_QUOTE);

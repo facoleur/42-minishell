@@ -13,11 +13,11 @@
 #include "env.h"
 #include "minishell.h"
 
-void	print_env(char **tab)
+void print_env(char** tab)
 {
-	int		i;
-	int		j;
-	char	*value;
+	int	  i;
+	int	  j;
+	char* value;
 
 	i = -1;
 	while (tab[++i])
@@ -38,9 +38,9 @@ void	print_env(char **tab)
 	}
 }
 
-int	builtin_export(char ***env, char **var)
+int builtin_export(char*** env, char** var)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!var[1])
@@ -61,14 +61,14 @@ int	builtin_export(char ***env, char **var)
 	return (0);
 }
 
-void	unset_var(char **env, char *var)
+void unset_var(char** env, char* var)
 {
-	int	var_index;
+	int var_index;
 
 	if (ft_strchr(var, '='))
 	{
 		printf("unset: not a valid identifier\n");
-		return ;
+		return;
 	}
 	var_index = does_var_exist(env, var);
 	if (var_index >= 0)
@@ -83,18 +83,18 @@ void	unset_var(char **env, char *var)
 	}
 }
 
-void	builtin_unset(char ***env, char **var)
+void builtin_unset(char*** env, char** var)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (var[++i])
 		unset_var(*env, var[i]);
 }
 
-void	builtin_env(char **env)
+void builtin_env(char** env)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (env[i])

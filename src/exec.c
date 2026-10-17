@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int	check_executable(t_node *node)
+int check_executable(t_node* node)
 {
-	struct stat	path_stat;
+	struct stat path_stat;
 
 	if (!node->cmd || !node->cmd[0])
 	{
@@ -40,16 +40,16 @@ int	check_executable(t_node *node)
 	return (0);
 }
 
-int	run_cmd(t_node *node, t_stack **pid_stack, char ***env)
+int run_cmd(t_node* node, t_stack** pid_stack, char*** env)
 {
-	pid_t	pid;
+	pid_t pid;
 
 	if (is_builtin(node->cmd))
 		return (run_builtin(node, pid_stack, env));
 	else if (cmd_do_not_include_path(node->cmd[0]))
 		get_cmd_path(node, get_path(*env));
 	node->active = check_executable(node);
-	pid = fork();
+	pid			 = fork();
 	set_signal(1);
 	if (pid == 0)
 	{
@@ -69,9 +69,9 @@ int	run_cmd(t_node *node, t_stack **pid_stack, char ***env)
 	return (0);
 }
 
-void	wait_pid(t_stack *pid_stack, int *status)
+void wait_pid(t_stack* pid_stack, int* status)
 {
-	struct rusage	usage;
+	struct rusage usage;
 
 	while (pid_stack)
 	{
@@ -82,9 +82,9 @@ void	wait_pid(t_stack *pid_stack, int *status)
 	}
 }
 
-int	max_pipe(t_node *node)
+int max_pipe(t_node* node)
 {
-	int	pipe_number;
+	int pipe_number;
 
 	pipe_number = 0;
 	while (node)
@@ -101,14 +101,14 @@ int	max_pipe(t_node *node)
 	return (0);
 }
 
-int	exe_prompt(t_node *list, char ***env, int *status)
+int exe_prompt(t_node* list, char*** env, int* status)
 {
-	t_node	*node;
-	t_stack	*pid_stack;
+	t_node*	 node;
+	t_stack* pid_stack;
 
 	deal_with_multi_cmd(list);
 	pid_stack = NULL;
-	node = list;
+	node	  = list;
 	if (max_pipe(list))
 	{
 		free_lst(node);

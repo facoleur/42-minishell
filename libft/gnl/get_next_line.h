@@ -11,32 +11,32 @@
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
-# endif
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 8
+#endif
 
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "../libft.h"
+#include "../libft.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 typedef struct s_get_residual
 {
-	int		i;
-	int		j;
-	char	*residual;
-}			t_get_residual;
+	int	  i;
+	int	  j;
+	char* residual;
+} t_get_residual;
 
-char		*freeyator(char **s);
-char		*strdup_or_strchr(const char *s, int mode, int c);
+char* freeyator(char** s);
+char* strdup_or_strchr(const char* s, int mode, int c);
 // char		*ft_strdup(const char *s);
 // char		*ft_strchr(const char *s, int c);
-char		*sub_line(char *line);
-char		*get_residual(char *stash);
-char		*get_next_line(int fd);
-char		*line_read(int fd, char *buf, char *stash);
+char* sub_line(char* line);
+char* get_residual(char* stash);
+char* get_next_line(int fd);
+char* line_read(int fd, char* buf, char* stash);
 
 #endif

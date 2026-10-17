@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "node.h"
 
-int	init_pipe(t_node *node)
+int init_pipe(t_node* node)
 {
 	while (node)
 	{
@@ -24,7 +24,7 @@ int	init_pipe(t_node *node)
 	return (0);
 }
 
-int	close_pipe(t_node *node)
+int close_pipe(t_node* node)
 {
 	while (node && node->previous)
 		node = node->previous;
@@ -40,7 +40,7 @@ int	close_pipe(t_node *node)
 	return (0);
 }
 
-int	stdin_occupied(t_node *node)
+int stdin_occupied(t_node* node)
 {
 	while (node && node->previous && node->previous->type != T_PIPE)
 		node = node->previous;
@@ -53,12 +53,12 @@ int	stdin_occupied(t_node *node)
 	return (0);
 }
 
-int	set_pipe(t_node *node)
+int set_pipe(t_node* node)
 {
 	int		check_value;
-	t_node	*tmp;
+	t_node* tmp;
 
-	tmp = node;
+	tmp			= node;
 	check_value = check_pipe(node);
 	if (check_value & PIPE_NEXT)
 	{
@@ -81,12 +81,12 @@ int	set_pipe(t_node *node)
 	return (0);
 }
 
-int	check_pipe(t_node *node)
+int check_pipe(t_node* node)
 {
 	int		return_value;
-	t_node	*tmp;
+	t_node* tmp;
 
-	tmp = node;
+	tmp			 = node;
 	return_value = 0;
 	while (tmp && tmp->type != T_PIPE)
 		tmp = tmp->next;

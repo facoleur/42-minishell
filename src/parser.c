@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void	all_quotes_remover_loop(char *string, char **token, char prev_quote)
+void all_quotes_remover_loop(char* string, char** token, char prev_quote)
 {
-	int		i;
-	int		j;
-	int		is_in_quote;
+	int i;
+	int j;
+	int is_in_quote;
 
-	i = -1;
-	j = 0;
+	i			= -1;
+	j			= 0;
 	is_in_quote = false;
 	while (string[++i])
 	{
@@ -40,63 +40,61 @@ void	all_quotes_remover_loop(char *string, char **token, char prev_quote)
 	(*token)[j] = 0;
 }
 
-char	**consolidate_cmd(t_tokens **tokens, int i, int *arg_count)
+char** consolidate_cmd(t_tokens** tokens, int i, int* arg_count)
 {
-	char	**cmd;
-	int		j;
-	int		cmd_len;
+	char** cmd;
+	int	   j;
+	int	   cmd_len;
 
-	j = i;
+	j		= i;
 	cmd_len = 0;
-	while (tokens[j] && (!is_metachar(tokens[j]->tok[0])
-			|| (is_metachar(tokens[j]->tok[0]) && tokens[j]->quote)))
+	while (tokens[j] && (!is_metachar(tokens[j]->tok[0]) || (is_metachar(tokens[j]->tok[0]) && tokens[j]->quote)))
 	{
 		cmd_len++;
 		j++;
 	}
-	cmd = palloc(cmd_len, sizeof(char *));
-	j = 0;
-	while (tokens[i] && (!is_metachar(tokens[i]->tok[0])
-			|| (is_metachar(tokens[i]->tok[0]) && tokens[i]->quote)))
+	cmd = palloc(cmd_len, sizeof(char*));
+	j	= 0;
+	while (tokens[i] && (!is_metachar(tokens[i]->tok[0]) || (is_metachar(tokens[i]->tok[0]) && tokens[i]->quote)))
 	{
 		cmd[j++] = tokens[i++]->tok;
 	}
 	*arg_count = cmd_len - 1;
-	cmd[j] = 0;
+	cmd[j]	   = 0;
 	return (cmd);
 }
 
-void	parse_heredoc(char *token, t_node **lst)
+void parse_heredoc(char* token, t_node** lst)
 {
-	char	*tmp;
+	char* tmp;
 
 	tmp = around_quotes_remover(token);
 	lst_append(lst, T_HEREDOC, NULL, merge_str(NULL, tmp));
 	free(tmp);
 }
 
-void	parse_cmd(t_tokens **tokens, t_node **lst, int *i, int *arg_count)
+void parse_cmd(t_tokens** tokens, t_node** lst, int* i, int* arg_count)
 {
-	char	**consolidated_cmd;
-	int		index;
+	char** consolidated_cmd;
+	int	   index;
 
-	index = *i;
+	index			 = *i;
 	consolidated_cmd = consolidate_cmd(tokens, index, arg_count);
 	lst_append(lst, T_CMD, consolidated_cmd, merge_str(NULL, NULL));
 	free(consolidated_cmd);
 	*i += *arg_count;
 }
 
-t_node	*parser(t_tokens **tok)
+t_node* parser(t_tokens** tok)
 {
-	t_node	*lst;
+	t_node* lst;
 	int		i;
 	int		tc;
 	int		arg_count;
 
 	lst = NULL;
-	tc = get_elem_count_tok(tok);
-	i = -1;
+	tc	= get_elem_count_tok(tok);
+	i	= -1;
 	while (tok[++i])
 	{
 		if (!ft_strncmp(tok[i]->tok, "|", 1) && !tok[i]->quote)
@@ -106,8 +104,7 @@ t_node	*parser(t_tokens **tok)
 		else if (!ft_strcmp(tok[i]->tok, "<") && i + 1 < tc && !tok[i]->quote)
 			lst_append(&lst, T_INFILE, 0, merge_str(tok[i++ + 1]->tok, 0));
 		else if (!ft_strcmp(tok[i]->tok, ">>") && i + 1 < tc && !tok[i]->quote)
-			lst_append(&lst, T_OUTFILE_APPEND, NULL, merge_str(tok[i++
-					+ 1]->tok, NULL));
+			lst_append(&lst, T_OUTFILE_APPEND, NULL, merge_str(tok[i++ + 1]->tok, NULL));
 		else if (!ft_strcmp(tok[i]->tok, "<<") && i + 1 < tc && !tok[i]->quote)
 			parse_heredoc(tok[i++ + 1]->tok, &lst);
 		else

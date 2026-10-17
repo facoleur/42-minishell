@@ -11,15 +11,15 @@
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
-# define EXPANSION_H
+#define EXPANSION_H
 
-# include "minishell.h"
+#include "minishell.h"
 
 typedef struct s_nbr
 {
-	int	status;
-	int	i;
-	int	j;
-}		t_nbr;
+	int status;
+	int i;
+	int j;
+} t_nbr;
 
 #endif

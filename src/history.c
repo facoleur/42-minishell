@@ -13,9 +13,9 @@
 #include "history.h"
 #include "minishell.h"
 
-void	remove_end_newline(char *line)
+void remove_end_newline(char* line)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (line[i])
@@ -24,21 +24,21 @@ void	remove_end_newline(char *line)
 		line[i - 1] = 0;
 }
 
-char	*get_history_path(char **env)
+char* get_history_path(char** env)
 {
-	char	*home;
-	char	*filename;
-	char	*path;
+	char* home;
+	char* filename;
+	char* path;
 
 	filename = "/.minishell_history";
-	home = ft_getenv("HOME", env);
+	home	 = ft_getenv("HOME", env);
 	if (!home)
 		return (0);
 	path = ft_strjoin(home, filename);
 	return (path);
 }
 
-void	ft_read_history_loop(char **line, int hist_fd)
+void ft_read_history_loop(char** line, int hist_fd)
 {
 	while (*line)
 	{
@@ -52,13 +52,13 @@ void	ft_read_history_loop(char **line, int hist_fd)
 	}
 }
 
-void	ft_read_history(char **env)
+void ft_read_history(char** env)
 {
-	int		hist_fd;
-	char	*line;
-	char	*path;
+	int	  hist_fd;
+	char* line;
+	char* path;
 
-	path = get_history_path(env);
+	path	= get_history_path(env);
 	hist_fd = open(path, O_RDONLY, 0644);
 	if (hist_fd < 0)
 	{
@@ -66,7 +66,7 @@ void	ft_read_history(char **env)
 		if (hist_fd < 0)
 		{
 			free(path);
-			return ;
+			return;
 		}
 	}
 	free(path);
@@ -81,13 +81,13 @@ void	ft_read_history(char **env)
 	free(line);
 }
 
-int	ft_write_history_file(char *line, char **env)
+int ft_write_history_file(char* line, char** env)
 {
-	int		hist_fd;
-	char	*path;
+	int	  hist_fd;
+	char* path;
 
 	remove_end_newline(line);
-	path = get_history_path(env);
+	path	= get_history_path(env);
 	hist_fd = open(path, O_RDWR | O_APPEND | O_CREAT, 0644);
 	ft_putstr_fd(line, hist_fd);
 	ft_putstr_fd("\n", hist_fd);

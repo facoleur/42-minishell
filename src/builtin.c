@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char	*builtin_pwd(void)
+char* builtin_pwd(void)
 {
-	char	*cwd;
+	char* cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)
@@ -28,7 +28,7 @@ char	*builtin_pwd(void)
 	return (NULL);
 }
 
-int	builtin_cd(const char *path, char **env)
+int builtin_cd(const char* path, char** env)
 {
 	if (path == NULL)
 	{
@@ -47,9 +47,9 @@ int	builtin_cd(const char *path, char **env)
 	return (0);
 }
 
-void	builtin_history(char **cmd, char **env)
+void builtin_history(char** cmd, char** env)
 {
-	char	*path;
+	char* path;
 
 	if (!cmd[1])
 	{
@@ -63,9 +63,9 @@ void	builtin_history(char **cmd, char **env)
 	}
 }
 
-int	builtin_exit(t_node *node)
+int builtin_exit(t_node* node)
 {
-	char	*cmd;
+	char* cmd;
 
 	if (!node->cmd[1])
 		exit(0);
@@ -91,30 +91,29 @@ int	builtin_exit(t_node *node)
 	return (0);
 }
 
-int	builtin_echo(t_node *node)
+int builtin_echo(t_node* node)
 {
-	char	**cmd;
-	int		i;
-	int		new_line;
+	char** cmd;
+	int	   i;
+	int	   new_line;
 
-	cmd = node->cmd;
-	i = 1;
+	cmd		 = node->cmd;
+	i		 = 1;
 	new_line = 1;
-	if (!cmd[1])
-	{
-		ft_putstr_fd("\n", 1);
-		return (1);
-	}
-	if (cmd[1][0] == '-' && cmd[1][1] == 'n' && !cmd[1][2])
+	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] == 'n' && !cmd[1][2])
 	{
 		i++;
 		new_line = 0;
 	}
-	if (cmd[i])
-		ft_putstr_fd(cmd[i++], 1);
 	while (cmd[i])
-		ft_putstr_fd(ft_strjoin(" ", cmd[i++]), 1);
+	{
+		ft_putstr_fd(cmd[i++], 1);
+		if (cmd[i])
+			ft_putstr_fd(" ", 1);
+	}
 	if (new_line)
 		ft_putstr_fd("\n", 1);
+	if (!cmd[1])
+		return (1);
 	return (0);
 }

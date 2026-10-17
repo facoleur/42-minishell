@@ -12,29 +12,28 @@
 
 #include "minishell.h"
 
-char	*ft_getenv(char *varname, char **env)
+char* ft_getenv(char* varname, char** env)
 {
-	int	i;
-	int	varname_len;
+	int i;
+	int varname_len;
 
-	i = -1;
+	i			= -1;
 	varname_len = ft_strlen(varname);
 	while (env[++i])
-		if (!ft_strncmp(varname, env[i], varname_len)
-			&& env[i][varname_len] == '=')
+		if (!ft_strncmp(varname, env[i], varname_len) && env[i][varname_len] == '=')
 			return (env[i] + varname_len + 1);
 	return (0);
 }
 
-int	does_var_exist(char **env, char *var)
+int does_var_exist(char** env, char* var)
 {
-	int	i;
-	int	var_len;
-	int	evar_len;
+	int i;
+	int var_len;
+	int evar_len;
 
 	if (var == NULL)
 		return (-1);
-	i = 0;
+	i		= 0;
 	var_len = 0;
 	while (var[var_len] != '=' && var[var_len])
 		var_len++;
@@ -50,14 +49,14 @@ int	does_var_exist(char **env, char *var)
 	return (-1);
 }
 
-void	export_var(char ***env, char *var)
+void export_var(char*** env, char* var)
 {
-	char	**new_env;
-	int		env_size;
-	int		var_index;
+	char** new_env;
+	int	   env_size;
+	int	   var_index;
 
 	var_index = 0;
-	env_size = 0;
+	env_size  = 0;
 	while ((*env)[env_size])
 		env_size++;
 	var_index = does_var_exist(*env, var);
@@ -65,17 +64,18 @@ void	export_var(char ***env, char *var)
 	{
 		free((*env)[var_index]);
 		(*env)[var_index] = ft_strdup(var);
-		return ;
+		return;
 	}
-	new_env = copy_env(*env, 1);
-	new_env[env_size] = ft_strdup(var);
+	new_env				  = copy_env(*env, 1);
+	new_env[env_size]	  = ft_strdup(var);
 	new_env[env_size + 1] = 0;
+	free_2starchar(*env);
 	*env = new_env;
 }
 
-int	is_varname_valid(char *var)
+int is_varname_valid(char* var)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!ft_isalpha(var[i]) && var[i] != '_')
@@ -98,9 +98,9 @@ int	is_varname_valid(char *var)
 	return (true);
 }
 
-int	is_varvalue_valid(char *var)
+int is_varvalue_valid(char* var)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (var[i] && var[i] != '=')

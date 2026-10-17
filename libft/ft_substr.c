@@ -21,15 +21,15 @@
  * @param len len of the substring
  * @return char*
  */
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char* ft_substr(const char* s, unsigned int start, size_t len)
 {
-	char	*res;
-	size_t	i;
-	size_t	j;
+	char*  res;
+	size_t i;
+	size_t j;
 
 	start = (size_t)start;
-	i = 0;
-	j = 0;
+	i	  = 0;
+	j	  = 0;
 	if (start > ft_strlen(s))
 		return (ft_strdup(""));
 	if (len > ft_strlen(s))

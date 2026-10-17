@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	is_builtin(char **cmd)
+int is_builtin(char** cmd)
 {
 	if (!ft_strcmp(cmd[0], "cd"))
 		return (1);
@@ -34,9 +34,21 @@ int	is_builtin(char **cmd)
 		return (0);
 }
 
-int	exe_builtin(t_node *node, char ***env)
+int print_pwd(void)
 {
-	char	**cmd;
+	char* cwd;
+
+	cwd = builtin_pwd();
+	if (!cwd)
+		return (1);
+	printf("%s\n", cwd);
+	free(cwd);
+	return (0);
+}
+
+int exe_builtin(t_node* node, char*** env)
+{
+	char** cmd;
 
 	cmd = node->cmd;
 	if (!ft_strcmp(cmd[0], "cd"))
@@ -50,7 +62,7 @@ int	exe_builtin(t_node *node, char ***env)
 	else if (!ft_strcmp(cmd[0], "export"))
 		return (builtin_export(env, cmd));
 	else if (!ft_strcmp(cmd[0], "pwd"))
-		printf("%s\n", builtin_pwd());
+		return (print_pwd());
 	else if (!ft_strcmp(cmd[0], "unset"))
 		builtin_unset(env, cmd);
 	else if (!ft_strcmp(cmd[0], "echo"))
@@ -58,9 +70,9 @@ int	exe_builtin(t_node *node, char ***env)
 	return (0);
 }
 
-int	run_builtin(t_node *node, t_stack **pid_stack, char ***env)
+int run_builtin(t_node* node, t_stack** pid_stack, char*** env)
 {
-	pid_t	pid;
+	pid_t pid;
 
 	if (node->active == 2)
 	{
@@ -87,15 +99,15 @@ int	run_builtin(t_node *node, t_stack **pid_stack, char ***env)
 		return (1);
 }
 
-void	flag_builtin_fork(t_node *node)
+void flag_builtin_fork(t_node* node)
 {
-	t_node	*tmp;
+	t_node* tmp;
 
 	tmp = node;
 	while (tmp && tmp->type != T_PIPE)
 		tmp = tmp->next;
 	if (!tmp || tmp->type != T_PIPE)
-		return ;
+		return;
 	tmp = node;
 	while (tmp)
 	{

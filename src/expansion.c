@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void	handle_single_quotes(char *token, int *i, char **res, int *j)
+void handle_single_quotes(char* token, int* i, char** res, int* j)
 {
-	int	k;
-	int	ii;
+	int k;
+	int ii;
 
 	k = *i;
 	while (token[k] && token[k] != '\'')
@@ -24,28 +24,36 @@ void	handle_single_quotes(char *token, int *i, char **res, int *j)
 	while (token[ii] && token[ii] != '\'')
 		ii++;
 	res[*j] = ft_substr(token, k, ii + 1 - k);
-	*j = *j + 1;
-	*i = ii + 1;
+	*j		= *j + 1;
+	*i		= ii + 1;
 }
 
-void	handle_others(char *token, int *i, char **res, int *j)
+void handle_others(char* token, int* i, char** res, int* j)
 {
-	int	k;
+	int k;
 
 	k = *i;
 	while (token[k] && (token[k + 1] != '$'))
 		k++;
-	res[*j] = ft_substr(token, *i, k - *i + 1);
-	*i = k + 1;
+	if (!token[k])
+	{
+		res[*j] = ft_substr(token, *i, k - *i);
+		*i		= k;
+	}
+	else
+	{
+		res[*j] = ft_substr(token, *i, k - *i + 1);
+		*i		= k + 1;
+	}
 	*j = *j + 1;
 }
 
-void	handle_expansion(char *token, char **res, char **env, int *nbr)
+void handle_expansion(char* token, char** res, char** env, int* nbr)
 {
-	char	*var_value;
-	char	*var_name;
+	char* var_value;
+	char* var_name;
 
-	var_name = get_var_name(&token[nbr[0]]);
+	var_name  = get_var_name(&token[nbr[0]]);
 	var_value = get_var_value(var_name, nbr[2], env);
 	if (var_value)
 	{
@@ -60,25 +68,22 @@ void	handle_expansion(char *token, char **res, char **env, int *nbr)
 	free(var_name);
 }
 
-char	*expand_token(char *token, int status, char **env)
+char* expand_token(char* token, int status, char** env)
 {
-	int		nbr_of_vars;
-	int		*i;
-	char	**res;
-	char	*new_token;
+	int	   nbr_of_vars;
+	int*   i;
+	char** res;
+	char*  new_token;
 
-	i = palloc(3, sizeof(int));
-	i[0] = 0;
-	i[1] = 0;
-	i[2] = status;
+	i			= ft_calloc(3, sizeof(int));
+	i[2]		= status;
 	nbr_of_vars = get_nbr_of_vars(token);
-	res = palloc((nbr_of_vars * 5 + 1), sizeof(char *));
+	res			= palloc((nbr_of_vars * 5 + 1), sizeof(char*));
 	while (token[i[0]])
 	{
 		if (is_in_quotes(token, i[0]) == SINGLE_QUOTE)
 			handle_single_quotes(token, &i[0], res, &i[1]);
-		else if ((token[i[0]] == '$') && is_in_quotes(token,
-				i[0]) != SINGLE_QUOTE)
+		else if ((token[i[0]] == '$') && is_in_quotes(token, i[0]) != SINGLE_QUOTE)
 			handle_expansion(token, res, env, &i[0]);
 		else
 			handle_others(token, &i[0], res, &i[1]);
@@ -86,5 +91,6 @@ char	*expand_token(char *token, int status, char **env)
 	res[i[1]] = 0;
 	new_token = flatten_2d_array(res);
 	free_2starchar(res);
+	free(i);
 	return (new_token);
 }

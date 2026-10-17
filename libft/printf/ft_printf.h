@@ -11,30 +11,30 @@
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#define FT_PRINTF_H
 
-# include "../libft.h"
-# include <stdarg.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "../libft.h"
+#include <stdarg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef unsigned long long	t_ull;
+typedef unsigned long long t_ull;
 
 // Helper functions
-void	ft_putnbr_ll(long long n);
-char	*dectohex_str(unsigned int decnbr);
-char	*dectohex_sptr(t_ull decnbr);
-char	*dectohex_scap(unsigned int decnbr);
-t_ull	nbr_count_digit(long long n);
-t_ull	print_int(int nbr);
-t_ull	print_str(char *str);
-t_ull	print_char(char c);
-t_ull	print_uint(unsigned int nbr);
-int		conv_matcher(char c);
-t_ull	conv_printer(char const c, va_list args);
-void	ft_putnbr_uint(t_ull n);
-char	*revtab(char *tab);
-int		ft_printf(const char *s, ...);
+void  ft_putnbr_ll(long long n);
+char* dectohex_str(unsigned int decnbr);
+char* dectohex_sptr(t_ull decnbr);
+char* dectohex_scap(unsigned int decnbr);
+t_ull nbr_count_digit(long long n);
+t_ull print_int(int nbr);
+t_ull print_str(char* str);
+t_ull print_char(char c);
+t_ull print_uint(unsigned int nbr);
+int	  conv_matcher(char c);
+t_ull conv_printer(char const c, va_list args);
+void  ft_putnbr_uint(t_ull n);
+char* revtab(char* tab);
+int	  ft_printf(const char* s, ...);
 
 #endif

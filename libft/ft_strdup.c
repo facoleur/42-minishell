@@ -17,14 +17,14 @@
  * @param s
  * @return char*
  */
-char	*ft_strdup(const char *s)
+char* ft_strdup(const char* s)
 {
-	char	*ds;
-	size_t	i;
+	char*  ds;
+	size_t i;
 
 	if (s == NULL)
 		return (NULL);
-	ds = (char *)palloc(ft_strlen(s) + 1, sizeof(char));
+	ds = (char*)palloc(ft_strlen(s) + 1, sizeof(char));
 	if (ds == NULL)
 		return (NULL);
 	i = 0;

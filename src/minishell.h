@@ -11,159 +11,159 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
-# include "../libft/libft.h"
-# include "colors.h"
-# include "error.h"
-# include "expansion.h"
-# include "history.h"
-# include "node.h"
-# include "parser.h"
-# include "stack.h"
-# include <dirent.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/resource.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
+#include "../libft/libft.h"
+#include "colors.h"
+#include "error.h"
+#include "expansion.h"
+#include "history.h"
+#include "node.h"
+#include "parser.h"
+#include "stack.h"
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/resource.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-# define MINI_DEBUG_MSG 0
+#define MINI_DEBUG_MSG 0
 
 typedef struct s_fd
 {
-	int		out;
-	int		in;
-}			t_fd;
+	int out;
+	int in;
+} t_fd;
 
 /* FUNCTIONS */
-void		print_list(t_node *lst);
+void print_list(t_node* lst);
 // var_expansion.c
-char		*var_expander(char *string);
-void		expand_env_vars(char **tokens, int status, char **env);
-void		expand_env_vars(char **tokens, int status, char **env);
-char		*get_var_name(char *token);
-char		*get_var_value(char *var_name, int status, char **env);
-int			get_nbr_of_vars(char *token);
-char		*expand_token(char *token, int status, char **env);
+char* var_expander(char* string);
+void  expand_env_vars(char** tokens, int status, char** env, int* expanded);
+char* get_var_name(char* token);
+char* get_var_value(char* var_name, int status, char** env);
+int	  get_nbr_of_vars(char* token);
+char* expand_token(char* token, int status, char** env);
 
 // array_utils.c
-int			get_elem_count_tok(t_tokens **array);
-int			count_arr_elems(char **array);
-char		**flatten_3d_array(char ***array3d);
-char		*flatten_2d_array(char **array);
+int	   get_elem_count_tok(t_tokens** array);
+int	   count_arr_elems(char** array);
+char** flatten_3d_array(char*** array3d);
+char*  flatten_2d_array(char** array);
 // parser.c
-int			is_metachar(char c);
-void		*palloc(int size, int elem_size);
-size_t		wordcounter(char const *s, char c);
-t_node		*parser(t_tokens **tokens);
-int			is_quote(char c);
-char		*input_normalizer(char *input);
-int			word_counter_quotes(char *input);
-int			is_in_quotes(char *input, int index);
-char		**consolidate_cmd(t_tokens **input, int i, int *arg_count);
+int		is_metachar(char c);
+void*	palloc(int size, int elem_size);
+size_t	wordcounter(char const* s, char c);
+t_node* parser(t_tokens** tokens);
+int		is_quote(char c);
+char*	input_normalizer(char* input);
+int		word_counter_quotes(char* input);
+int		is_in_quotes(char* input, int index);
+char**	consolidate_cmd(t_tokens** input, int i, int* arg_count);
 // tokenizer.c
-int			is_single_op(char *string, int i);
-int			is_double_op(char *string, int i);
-int			count_op(char *string);
-void		free_tokens(t_tokens **tokens);
+int	 is_single_op(char* string, int i);
+int	 is_double_op(char* string, int i);
+int	 count_op(char* string);
+void free_tokens(t_tokens** tokens);
 
-t_tokens	**tokenizer(char *string, int status, char **env);
-char		**op_tokenizer(char *string);
-char		**sp_tokenizer(char *string, char c);
-int			is_single_op(char *string, int i);
-int			is_double_op(char *string, int i);
-int			count_op(char *string);
-int			count_quotes(char *string);
-int			is_quotes_opened(char *string);
-char		*op_tokenzier_loop(char *string, int *i, int *op_flag, int *start);
-char		*set_is_in_quotes(char *token);
-t_tokens	**quotes_tokenizer(char **tokens);
+t_tokens** tokenizer(char* string, int status, char** env);
+char**	   op_tokenizer(char* string);
+char**	   sp_tokenizer(char* string, char c);
+int		   is_single_op(char* string, int i);
+int		   is_double_op(char* string, int i);
+int		   count_op(char* string);
+int		   count_quotes(char* string);
+int		   is_quotes_opened(char* string);
+char*	   op_tokenzier_loop(char* string, int* i, int* op_flag, int* start);
+char*	   set_is_in_quotes(char* token);
+t_tokens** quotes_tokenizer(char** tokens, int* expanded);
 // error_handling.c
-int			parsing_error(t_tokens **tokens);
-int			errror_msg(int type, int c);
+int parsing_error(t_tokens** tokens);
+int errror_msg(int type, int c);
 // error_handling_utils.c
-int			is_operator(char *token);
-int			is_file_operator(char *token);
-int			is_unhandled_operator(char *tokens);
+int is_operator(char* token);
+int is_file_operator(char* token);
+int is_unhandled_operator(char* tokens);
 // exec.c
-int			exe_prompt(t_node *node, char ***env, int *status);
+int exe_prompt(t_node* node, char*** env, int* status);
 // builtin.c
-char		*builtin_pwd(void);
-int			builtin_cd(const char *path, char **env);
-int			builtin_exit(t_node *node);
-void		builtin_history(char **cmd, char **env);
+char* builtin_pwd(void);
+int	  print_pwd(void);
+int	  builtin_cd(const char* path, char** env);
+int	  builtin_exit(t_node* node);
+void  builtin_history(char** cmd, char** env);
 // env.c
-char		*ft_getenv(char *varname, char **env);
-void		builtin_env(char **env);
-int			builtin_export(char ***env, char **var);
-char		**copy_env(char **env, int size);
-void		builtin_unset(char ***env, char **var);
-int			builtin_echo(t_node *node);
+char*  ft_getenv(char* varname, char** env);
+void   builtin_env(char** env);
+int	   builtin_export(char*** env, char** var);
+char** copy_env(char** env, int size);
+void   builtin_unset(char*** env, char** var);
+int	   builtin_echo(t_node* node);
 
 // stack.c
-void		stack_add(t_stack **lst, int value);
-void		stack_drop(t_stack **lst);
+void stack_add(t_stack** lst, int value);
+void stack_drop(t_stack** lst);
 // erreur.c
-void		debug_print(char *msg);
-void		write_err(char *str);
+void debug_print(char* msg);
+void write_err(char* str);
 // list_utils.c
 // infile.c
-int			exe_infile(t_node *node);
-int			exe_outfile_append(t_node *node);
-int			exe_outfile(t_node *node);
-int			exe_heredoc(t_node *node);
+int exe_infile(t_node* node);
+int exe_outfile_append(t_node* node);
+int exe_outfile(t_node* node);
+int exe_heredoc(t_node* node);
 // signal.c
-void		sigint_handler(int sig);
-void		sigint_handler_p(int sig);
-void		sigquit_handler(int sig);
-void		sigquit_handler_p(int sig);
-void		sigint_handler_heredoc(int sig);
+void sigint_handler(int sig);
+void sigint_handler_p(int sig);
+void sigquit_handler(int sig);
+void sigquit_handler_p(int sig);
+void sigint_handler_heredoc(int sig);
 // pipe.c
-void		check_pipe_status(t_node *node);
-int			init_pipe(t_node *node);
-int			close_pipe(t_node *node);
-int			set_pipe(t_node *node);
-int			check_pipe(t_node *node);
+void check_pipe_status(t_node* node);
+int	 init_pipe(t_node* node);
+int	 close_pipe(t_node* node);
+int	 set_pipe(t_node* node);
+int	 check_pipe(t_node* node);
 // free.c
-char		**free_2starchar(char **strstr);
+char** free_2starchar(char** strstr);
 // history.c
-void		ft_history(char *prompt, char **env);
-void		remove_end_newline(char *line);
-char		*get_history_path(char **env);
-void		ft_read_history(char **env);
-int			ft_write_history_file(char *line, char **env);
-void		add_to_history(char *line);
-void		print_hist(char **env);
+void  ft_history(char* prompt, char** env);
+void  remove_end_newline(char* line);
+char* get_history_path(char** env);
+void  ft_read_history(char** env);
+int	  ft_write_history_file(char* line, char** env);
+void  add_to_history(char* line);
+void  print_hist(char** env);
 // cmd_utils.c
-char		*get_cmd_path(t_node *node, char **path);
-char		**get_path(char *env[]);
-int			cmd_do_not_include_path(char *cmd);
-void		deal_with_multi_cmd(t_node *node);
+char*  get_cmd_path(t_node* node, char** path);
+char** get_path(char* env[]);
+int	   cmd_do_not_include_path(char* cmd);
+void   deal_with_multi_cmd(t_node* node);
 // builtin_utils.c
-void		flag_builtin_fork(t_node *node);
-int			run_builtin(t_node *node, t_stack **pid_stack, char ***env);
-int			exe_builtin(t_node *node, char ***env);
-int			is_builtin(char **cmd);
+void flag_builtin_fork(t_node* node);
+int	 run_builtin(t_node* node, t_stack** pid_stack, char*** env);
+int	 exe_builtin(t_node* node, char*** env);
+int	 is_builtin(char** cmd);
 // redirection_file_utils.c
-int			run_redirection_file(t_node *node);
+int run_redirection_file(t_node* node);
 // print_line define for quick debug
-char		**merge_str(char *file, char *del);
-void		set_signal(int primary);
-int			check_error(t_node *lst);
-void		ft_dup2(int fd1, int fd2);
-char		**get_new_shlvl(char **env);
-//# define PL printf("line: %d file: %s\n", __LINE__, __FILE__);
+char** merge_str(char* file, char* del);
+void   set_signal(int primary);
+int	   check_error(t_node* lst);
+void   ft_dup2(int fd1, int fd2);
+char** get_new_shlvl(char** env);
 // # define PL printf("line: %d file: %s\n", __LINE__, __FILE__);
+//  # define PL printf("line: %d file: %s\n", __LINE__, __FILE__);
 
 #endif

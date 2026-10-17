@@ -12,19 +12,19 @@
 
 #include "minishell.h"
 
-char	*get_cmd_path(t_node *node, char **path)
+char* get_cmd_path(t_node* node, char** path)
 {
-	char	*cmd;
-	char	*tmp;
-	int		i;
+	char* cmd;
+	char* tmp;
+	int	  i;
 
-	i = -1;
+	i	= -1;
 	cmd = node->cmd[0];
 	while (cmd && cmd[0] && path && path[++i])
 	{
 		tmp = ft_strjoin(path[i], cmd);
 		if (!tmp)
-			break ;
+			break;
 		if (!access(tmp, X_OK))
 		{
 			free(cmd);
@@ -40,12 +40,12 @@ char	*get_cmd_path(t_node *node, char **path)
 	return (NULL);
 }
 
-char	**get_path(char *env[])
+char** get_path(char* env[])
 {
-	char	**tmps;
-	char	*tmp;
-	char	*path_env;
-	int		i;
+	char** tmps;
+	char*  tmp;
+	char*  path_env;
+	int	   i;
 
 	path_env = ft_getenv("PATH", env);
 	if (!path_env)
@@ -56,7 +56,7 @@ char	**get_path(char *env[])
 	i = 0;
 	while (tmps[i])
 	{
-		tmp = tmps[i];
+		tmp		= tmps[i];
 		tmps[i] = ft_strjoin(tmp, "/");
 		free(tmp);
 		if (!tmps[i])
@@ -66,7 +66,7 @@ char	**get_path(char *env[])
 	return (tmps);
 }
 
-int	cmd_do_not_include_path(char *cmd)
+int cmd_do_not_include_path(char* cmd)
 {
 	while (*cmd)
 	{
@@ -77,9 +77,9 @@ int	cmd_do_not_include_path(char *cmd)
 	return (1);
 }
 
-void	deal_cout(t_node *node, t_node *prev_cmd, int i, int ii)
+void deal_cout(t_node* node, t_node* prev_cmd, int i, int ii)
 {
-	char	**tmp;
+	char** tmp;
 
 	while (prev_cmd && prev_cmd->type != T_CMD)
 		prev_cmd = prev_cmd->previous;
@@ -90,11 +90,11 @@ void	deal_cout(t_node *node, t_node *prev_cmd, int i, int ii)
 		if (prev_cmd->cmd[ii])
 			ii++;
 	}
-	tmp = (char **)palloc(i + ii + 1, sizeof(char *));
+	tmp = (char**)palloc(i + ii + 1, sizeof(char*));
 	if (!tmp)
-		return ;
+		return;
 	ii = 0;
-	i = 0;
+	i  = 0;
 	while (prev_cmd->cmd[i])
 		tmp[ii++] = prev_cmd->cmd[i++];
 	i = 0;
@@ -105,10 +105,10 @@ void	deal_cout(t_node *node, t_node *prev_cmd, int i, int ii)
 	prev_cmd->cmd = tmp;
 }
 
-void	deal_with_multi_cmd(t_node *node)
+void deal_with_multi_cmd(t_node* node)
 {
 	int		cmd_seen;
-	t_node	*prev_cmd;
+	t_node* prev_cmd;
 
 	cmd_seen = 0;
 	while (node)
@@ -125,7 +125,7 @@ void	deal_with_multi_cmd(t_node *node)
 			prev_cmd = node->previous;
 			free(node->cmd);
 			free(node);
-			node = prev_cmd;
+			node	 = prev_cmd;
 			cmd_seen = 1;
 		}
 		if (node->type == T_PIPE)

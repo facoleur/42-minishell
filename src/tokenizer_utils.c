@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int	is_single_op(char *string, int i)
+int is_single_op(char* string, int i)
 {
-	char	*single_op;
+	char* single_op;
 
 	single_op = "&|<>()";
 	if (string[i] && ft_strchr(single_op, string[i]))
@@ -22,7 +22,7 @@ int	is_single_op(char *string, int i)
 	return (false);
 }
 
-int	is_double_op(char *string, int i)
+int is_double_op(char* string, int i)
 {
 	if (string[i] == 0 || string[i + 1] == 0)
 		return (false);
@@ -31,29 +31,28 @@ int	is_double_op(char *string, int i)
 	return (false);
 }
 
-int	count_op(char *string)
+int count_op(char* string)
 {
-	int	i;
-	int	count;
+	int i;
+	int count;
 
-	i = 0;
+	i	  = 0;
 	count = 0;
 	while (string[i])
 	{
-		if ((is_single_op(string, i) || is_double_op(string, i))
-			&& !is_in_quotes(string, i))
+		if ((is_single_op(string, i) || is_double_op(string, i)) && !is_in_quotes(string, i))
 			count++;
 		i++;
 	}
 	return (count);
 }
 
-int	count_quotes(char *string)
+int count_quotes(char* string)
 {
-	int	i;
-	int	count;
+	int i;
+	int count;
 
-	i = 0;
+	i	  = 0;
 	count = 0;
 	while (string[i])
 	{
@@ -64,9 +63,9 @@ int	count_quotes(char *string)
 	return (count);
 }
 
-int	is_quotes_opened(char *string)
+int is_quotes_opened(char* string)
 {
-	int	len;
+	int len;
 
 	len = ft_strlen(string);
 	if (is_in_quotes(string, len - 1) || count_quotes(string) == 1)

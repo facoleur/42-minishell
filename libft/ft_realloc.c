@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t old_size, size_t size)
+void* ft_realloc(void* ptr, size_t old_size, size_t size)
 {
-	void	*new_block;
+	void* new_block;
 
 	if (!ptr)
 		return (malloc(size));

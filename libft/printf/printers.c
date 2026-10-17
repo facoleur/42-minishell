@@ -15,9 +15,9 @@
 // Print an integer
 // Param:	Integer to print
 // Return:	Number of char printed
-t_ull	print_int(int nbr)
+t_ull print_int(int nbr)
 {
-	t_ull	count;
+	t_ull count;
 
 	count = nbr_count_digit(nbr);
 	ft_putnbr_fd(nbr, 1);
@@ -27,9 +27,9 @@ t_ull	print_int(int nbr)
 // Print an unsigned integer
 // Param:	Unsigned integer to print
 // Return:	Number of char printed
-t_ull	print_uint(unsigned int nbr)
+t_ull print_uint(unsigned int nbr)
 {
-	t_ull	count;
+	t_ull count;
 
 	count = nbr_count_digit(nbr);
 	ft_putnbr_uint(nbr);
@@ -39,9 +39,9 @@ t_ull	print_uint(unsigned int nbr)
 // Print a string
 // Param:	String to print
 // Return:	Number of char printed
-t_ull	print_str(char *str)
+t_ull print_str(char* str)
 {
-	t_ull	count;
+	t_ull count;
 
 	if (str == NULL)
 	{
@@ -56,7 +56,7 @@ t_ull	print_str(char *str)
 // Print a character
 // Param:	Char to print
 // Return:	Number of char printed (1)
-t_ull	print_char(char c)
+t_ull print_char(char c)
 {
 	ft_putchar_fd(c, 1);
 	return (1);

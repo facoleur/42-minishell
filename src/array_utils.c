@@ -18,14 +18,14 @@
  * @param array3d 3d array
  * @return size of the array
  */
-int	get_3darray_size(char ***array3d)
+int get_3darray_size(char*** array3d)
 {
-	int	i;
-	int	j;
-	int	size;
+	int i;
+	int j;
+	int size;
 
-	i = 0;
-	j = 0;
+	i	 = 0;
+	j	 = 0;
 	size = 0;
 	while (array3d[i])
 	{
@@ -43,19 +43,19 @@ int	get_3darray_size(char ***array3d)
  * @param array3d 3d array to flatten
  * @return char** 2d array
  */
-char	**flatten_3d_array(char ***array3d)
+char** flatten_3d_array(char*** array3d)
 {
-	char	**arr_flatten;
-	int		i;
-	int		j;
-	int		k;
-	int		array3d_size;
+	char** arr_flatten;
+	int	   i;
+	int	   j;
+	int	   k;
+	int	   array3d_size;
 
-	i = 0;
-	j = 0;
-	k = 0;
+	i			 = 0;
+	j			 = 0;
+	k			 = 0;
 	array3d_size = get_3darray_size(array3d);
-	arr_flatten = palloc(array3d_size, sizeof(char *));
+	arr_flatten	 = palloc(array3d_size, sizeof(char*));
 	while (array3d[i])
 	{
 		while (array3d[i][j])
@@ -75,9 +75,9 @@ char	**flatten_3d_array(char ***array3d)
  * @brief get the number of elems in an array
  *
  */
-int	get_elem_count_tok(t_tokens **array)
+int get_elem_count_tok(t_tokens** array)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (array[i])
@@ -87,9 +87,9 @@ int	get_elem_count_tok(t_tokens **array)
 	return (i);
 }
 
-int	count_arr_elems(char **array)
+int count_arr_elems(char** array)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (array[i])
@@ -97,12 +97,12 @@ int	count_arr_elems(char **array)
 	return (i);
 }
 
-char	*flatten_2d_array(char **array)
+char* flatten_2d_array(char** array)
 {
-	char	*res;
-	int		i;
-	int		j;
-	int		k;
+	char* res;
+	int	  i;
+	int	  j;
+	int	  k;
 
 	i = -1;
 	j = 0;
@@ -114,8 +114,8 @@ char	*flatten_2d_array(char **array)
 		j = 0;
 	}
 	res = palloc(k, sizeof(char));
-	i = -1;
-	k = 0;
+	i	= -1;
+	k	= 0;
 	while (array[++i])
 	{
 		while (array[i][j])
